@@ -1,3 +1,4 @@
+
 const MAX_SCORE = 5;
 
 // initialise scores
@@ -5,10 +6,21 @@ let playerScore = 0;
 let computerScore = 0;
 // Function that randomly selects the computer's choice.
 function getComputerChoice() {
+    const startTime = performance.now();  // Start timer
+
     const choices = ["Rock", "Paper", "Scissors"];
     const randomNumber = Math.floor(Math.random() * 3);
-    return choices[randomNumber];
+    const computerChoice = choices[randomNumber];
+
+    const endTime = performance.now();  // End timer
+    const timeTaken = ((endTime - startTime)).toFixed(5); // Calculate time taken
+
+    return {
+        choice: computerChoice,
+        time: timeTaken
+    };
 }
+
 
 // Function that compares player's choice against computer's to determine the winner of a round.
 function playRound(playerSelection, computerSelection) {
@@ -31,7 +43,7 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-// Game helpers
+// Announce winner
 function announceOverallWinner() {
     const gameResultDiv = document.getElementById("gameResult");
     const playAgainButton = document.getElementById("playAgain");
@@ -54,7 +66,7 @@ function resetGame() {
     computerScore = 0;
     
      // Clear the game result and the results of the last round
-     document.getElementById("gameResult").textContent = ""; // This clears the "Game Over" message
+     document.getElementById("gameResult").textContent = "";
      document.getElementById("results").textContent = ""; 
      // Update the DOM elements for scores:
     document.getElementById("playerScore").textContent = playerScore;
@@ -68,18 +80,26 @@ function resetGame() {
 
 // Function to handle a round when a button is clicked.
 function playGameRound(buttonChoice) {
-    const computerChoice = getComputerChoice();
-    const result = playRound(buttonChoice, computerChoice);
+    const computerData = getComputerChoice();
+    const computerChoice = computerData.choice;
+    const computerTime = computerData.time;
+    
+    let result = playRound(buttonChoice, computerChoice);
+    if (result.includes("win")) {
+        result += ` I'm going to crash you into the fence next time!`;
+        playerScore++;
+    } else if (result.includes("lose")) {
+        result += ` You suck! How are your ribs? I beat you in less than ${computerTime} milliseconds!`;
+        computerScore++;
+    } else {
+        result += ` You're only human. I made my choice in less than ${computerTime} milliseconds!`;
+    }
+
     console.log(result);
     const resultsDiv = document.getElementById("results");
     resultsDiv.textContent = result; // Updating the results div with the game result
 
-    if (result.includes("win")) {
-        playerScore++;
-    } else if (result.includes("lose")) {
-        computerScore++;
-    }
-
+   
     // Update the DOM with the scores
     document.getElementById("playerScore").textContent = playerScore;
     document.getElementById("computerScore").textContent = computerScore;

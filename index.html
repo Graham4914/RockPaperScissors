@@ -3,19 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Rock, Paper, Scissors Game</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
 <body>
-    <h1>Time to Play Rock Paper Scissors</h1>
-    <button id="rock">Rock</button>
-    <button id="paper">Paper</button>
-    <button id="scissors">Scissors</button>
-    <div id="results"></div>
+    <h1>Rock Paper Scissors</h1>
+    <p>The rules are simple, play against the Terminalator!</p>
+    <p> First one to 5 wins!</p>
+
+    <div class="button-container">
+        <div class="icon-container">
+        <button id="rock"><img src="images/rock.svg"></button>
+        <h3>Rock</h3>
+        </div>
+        <div class="icon-container">
+        <button id="paper"><img src="images/paper.svg"></button>
+        <h3>Paper</h3>
+        </div>
+        <div class="icon-container">
+        <button id="scissors"><img src="images/scissors.svg"></button>
+        <h3>Scissors</h3>
+        </div>
+    </div>
+
+    <div id="results" class="results"></div>
     <div id="scoreboard"> 
         <p>Player Score: <span id="playerScore">0</span></p>
         <p>Computer Score: <span id="computerScore">0<span></p>
     </div>
-    <div id="gameResult"></div>
+    <div id="gameResult" class="game-result"></div>
     <button id="playAgain" style="display: none;">Play Again</button>
      <script src="script.js"></script>   
 </body>
